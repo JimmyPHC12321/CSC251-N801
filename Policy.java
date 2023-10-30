@@ -1,152 +1,91 @@
 /**
- * The Policy class models an insurance policy for one person.
+ * The Policy class represents an insurance policy.
  */
 public class Policy {
-    // Attributes
-
-    /**
-     * The policy number of the insurance policy.
-     */
-    private String policyNumber;
-
-    /**
-     * The name of the insurance policy provider.
-     */
+    private int policyNumber;
     private String providerName;
-
-    /**
-     * The first name of the policyholder.
-     */
-    private String firstName;
-
-    /**
-     * The last name of the policyholder.
-     */
-    private String lastName;
-
-    /**
-     * The age of the policyholder.
-     */
-    private int age;
-
-    /**
-     * The smoking status of the policyholder (smoker or non-smoker).
-     */
-    private String smokingStatus;
-
-    /**
-     * The height of the policyholder in inches.
-     */
-    private double height;
-
-    /**
-     * The weight of the policyholder in pounds.
-     */
-    private double weight;
-
-    // Constants
-
-    /**
-     * The base fee for the insurance policy.
-     */
-    private static final double BASE_FEE = 600.0;
-
-    /**
-     * The additional fee for policyholders over 50 years old.
-     */
-    private static final double AGE_FEE = 75.0;
-
-    /**
-     * The additional fee for smoker policyholders.
-     */
-    private static final double SMOKER_FEE = 100.0;
-
-    /**
-     * The BMI threshold for calculating additional fee.
-     */
-    private static final double BMI_THRESHOLD = 35.0;
-
-    /**
-     * The fee per unit BMI above the threshold.
-     */
-    private static final double BMI_FEE_PER_UNIT = 20.0;
+    private PolicyHolder policyHolder;
+    private double price;
 
     // Constructors
 
     /**
-     * Default constructor that initializes all attributes with default values.
-     */
-    public Policy() {
-        policyNumber = "";
-        providerName = "";
-        firstName = "";
-        lastName = "";
-        age = 0;
-        smokingStatus = "non-smoker"; // Default to non-smoker
-        height = 0.0;
-        weight = 0.0;
-    }
-
-    /**
-     * Constructor that accepts arguments to initialize all fields.
+     * Creates a new Policy object with the given information.
      *
-     * @param policyNumber   The policy number of the insurance policy.
-     * @param providerName   The name of the insurance policy provider.
-     * @param firstName      The first name of the policyholder.
-     * @param lastName       The last name of the policyholder.
-     * @param age            The age of the policyholder.
-     * @param smokingStatus  The smoking status of the policyholder (smoker or non-smoker).
-     * @param height         The height of the policyholder in inches.
-     * @param weight         The weight of the policyholder in pounds.
+     * @param policyNumber   The policy number.
+     * @param providerName   The name of the insurance provider.
+     * @param policyHolder   The policy holder associated with this policy.
+     * @param price          The price of the policy.
      */
-    public Policy(String policyNumber, String providerName, String firstName, String lastName,
-                  int age, String smokingStatus, double height, double weight) {
+    public Policy(int policyNumber, String providerName, PolicyHolder policyHolder, double price) {
         this.policyNumber = policyNumber;
         this.providerName = providerName;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.age = age;
-        this.smokingStatus = smokingStatus;
-        this.height = height;
-        this.weight = weight;
+        this.policyHolder = policyHolder;
+        this.price = price;
     }
 
-    // Getters and Setters for attributes
-
-    // Getter and Setter methods here...
-
-    // Methods
+    // Getter methods
 
     /**
-     * Calculate the Body Mass Index (BMI) of the policyholder.
+     * Get the policy number.
      *
-     * @return The calculated BMI value.
+     * @return The policy number.
      */
-    public double calculateBMI() {
-        return (weight * 703) / (height * height);
+    public int getPolicyNumber() {
+        return policyNumber;
     }
 
     /**
-     * Calculate the price of the insurance policy based on policyholder attributes.
+     * Get the name of the insurance provider.
      *
-     * @return The calculated price of the insurance policy.
+     * @return The provider name.
      */
-    public double calculatePolicyPrice() {
-        double policyPrice = BASE_FEE;
+    public String getProviderName() {
+        return providerName;
+    }
 
-        if (age > 50) {
-            policyPrice += AGE_FEE;
-        }
+    /**
+     * Get the policy holder associated with this policy.
+     *
+     * @return The policy holder.
+     */
+    public PolicyHolder getPolicyHolder() {
+        return policyHolder;
+    }
 
-        if (smokingStatus.equalsIgnoreCase("smoker")) {
-            policyPrice += SMOKER_FEE;
-        }
+    /**
+     * Get the price of the policy.
+     *
+     * @return The policy price.
+     */
+    public double getPrice() {
+        return price;
+    }
 
-        double bmi = calculateBMI();
-        if (bmi > BMI_THRESHOLD) {
-            policyPrice += (bmi - BMI_THRESHOLD) * BMI_FEE_PER_UNIT;
-        }
+    // Static field and method
 
-        return policyPrice;
+    /**
+     * Get the number of Policy objects that have been created.
+     *
+     * @return The count of Policy objects.
+     */
+    public static int getPolicyCount() {
+        return policyCount;
+    }
+
+    // toString method
+
+    /**
+     * Returns a string representation of the Policy object.
+     *
+     * @return A string containing policy information.
+     */
+    @Override
+    public String toString() {
+        // Include the string representation of the Policy object here.
+        return "Policy Number: " + policyNumber + "\n" +
+               "Provider Name: " + providerName + "\n" +
+               policyHolder.toString() +
+               "Policy Price: $" + price + "\n";
     }
 }
